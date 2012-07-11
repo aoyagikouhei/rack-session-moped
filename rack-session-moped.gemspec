@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "rack-session-moped"
   gem.require_paths = ["lib"]
   gem.version       = Rack::Session::Moped::VERSION
+  gem.add_dependency(%q<rack>)
+  gem.add_dependency(%q<moped>)
 end
