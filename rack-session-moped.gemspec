@@ -4,8 +4,8 @@ require File.expand_path('../lib/rack-session-moped/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["aoyagikouhei"]
   gem.email         = ["aoyagi.kouhei@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Rack session store for MongoDB}
+  gem.summary       = %q{Rack session store for MongoDB}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
