@@ -1,6 +1,6 @@
 module Rack
   module Session
-    module Moped
+    class Moped
       VERSION = "0.0.1"
     end
   end
