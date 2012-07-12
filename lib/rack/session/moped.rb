@@ -1,4 +1,4 @@
-require "rack-session-moped/version"
+require "rack/session/moped/version"
 
 module Rack
   module Session
