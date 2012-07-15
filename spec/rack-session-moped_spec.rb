@@ -25,7 +25,7 @@ describe Rack::Session::Moped do
   it 'should default connection params' do
     mongo = Rack::Session::Moped.new(@incrementor)
     pool = mongo.pool
-    pool.database.session.cluster.nodes[0].address.should == '127.0.0.1:27017'
+    pool.database.session.cluster.nodes[0].address.should == 'localhost:27017'
     
     pool.should be_kind_of(Moped::Collection)
     pool.database.name.should == :rack
@@ -34,11 +34,11 @@ describe Rack::Session::Moped do
 
   it 'should specify connection params' do
     mongo = Rack::Session::Moped.new(@incrementor,
-      seeds: ['localhost:27017'],
+      seeds: ['127.0.0.1:27017'],
       db: :rack_test,
       collection: :sessions_test)
     pool = mongo.pool
-    pool.database.session.cluster.nodes[0].address.should == 'localhost:27017'
+    pool.database.session.cluster.nodes[0].address.should == '127.0.0.1:27017'
     
     pool.should be_kind_of(Moped::Collection)
     pool.database.name.should == :rack_test

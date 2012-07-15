@@ -18,7 +18,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Simple (localhost:27017 db:rack, collection:sessions)
+
+    use Rack::Session::Moped
+
+Set Moped Session
+
+    session = Moped::Session.new(['localhost:27017'])
+    use Rack::Sessionn::Moped, {
+      session: session
+    }
+
+Set Config
+
+    use Rack::Sessionn::Moped, {
+      seeds: ['127.0.0.1:27017'],
+      db: 'rack_test',
+      collection: 'sessions_test'
+    }
 
 ## Contributing
 
@@ -27,3 +44,6 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## License
+[rack-session-mongo](http://github.com/aoyagikouhei/rack-session-moped) is Copyright (c) 2012 [Kouhei Aoyagi](http://github.com/aoyagikouhei)(@[aoyagikouhei](http://twitter.com/aoyagikouhei)) and distributed under the [MIT license](http://www.opensource.org/licenses/mit-license).

@@ -9,7 +9,7 @@ module Rack
         db: :rack, 
         collection: :sessions, 
         drop: false, 
-        seeds: ["127.0.0.1:27017"]
+        seeds: ["localhost:27017"]
       )
 
       def initialize(app, options={})
