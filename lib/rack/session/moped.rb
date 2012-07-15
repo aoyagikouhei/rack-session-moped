@@ -61,6 +61,7 @@ module Rack
 
       def destroy_session(env, sid, options)
         delete_session(sid)
+        generate_sid unless options[:drop]
       end
 
       private

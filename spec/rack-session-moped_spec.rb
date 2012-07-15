@@ -23,7 +23,6 @@ describe Rack::Session::Moped do
   end
 
   it 'should default connection params' do
-    pending
     mongo = Rack::Session::Moped.new(@incrementor)
     pool = mongo.pool
     pool.database.session.cluster.nodes[0].address.should == '127.0.0.1:27017'
@@ -34,7 +33,6 @@ describe Rack::Session::Moped do
   end
 
   it 'should specify connection params' do
-    pending
     mongo = Rack::Session::Moped.new(@incrementor,
       seeds: ['localhost:27017'],
       db: :rack_test,
@@ -48,7 +46,6 @@ describe Rack::Session::Moped do
   end
 
   it 'creates a new cookie' do
-    pending
     pool = Rack::Session::Moped.new(@incrementor)
     res = Rack::MockRequest.new(pool).get('/')
     res['Set-Cookie'].should match(/#{@session_key}=/)
@@ -56,7 +53,6 @@ describe Rack::Session::Moped do
   end
 
   it 'determines session from a cookie' do
-    pending
     pool = Rack::Session::Moped.new(@incrementor)
     req = Rack::MockRequest.new(pool)
     res = req.get('/')
@@ -68,7 +64,6 @@ describe Rack::Session::Moped do
   end
   
   it 'survives nonexistant cookies' do
-    pending
     bad_cookie = 'rack.session=blarghfasel'
     pool = Rack::Session::Moped.new(@incrementor)
     res = Rack::MockRequest.new(pool).
@@ -79,7 +74,6 @@ describe Rack::Session::Moped do
   end
 
   it 'should maintain freshness' do
-    pending
     pool = Rack::Session::Moped.new(@incrementor, :expire_after => 3)
     res = Rack::MockRequest.new(pool).get('/')
     res.body.should include('"counter"=>1')
@@ -95,7 +89,6 @@ describe Rack::Session::Moped do
   end
 
   it 'deletes cookies with :drop option' do
-    pending
     pool = Rack::Session::Moped.new(@incrementor)
     req = Rack::MockRequest.new(pool)
     drop = Rack::Utils::Context.new(pool, @drop_session)
@@ -139,12 +132,11 @@ describe Rack::Session::Moped do
     res2.body.should == '{"counter"=>3}'
 
     res3 = req.get('/', 'HTTP_COOKIE' => new_cookie)
-    res3['Set-Cookie'][@session_match].should == new_session
+    res3['Set-Cookie'].should be_nil
     res3.body.should == '{"counter"=>4}'
   end
 
   it 'should default marshal_data to true' do
-    pending
     pool = Rack::Session::Moped.new(@incrementor)
     pool.marshal_data.should ==  true
     data = {'test' => true}
@@ -153,7 +145,6 @@ describe Rack::Session::Moped do
   end
 
   it 'should be able to set marshal_data to false' do
-    pending
     pool = Rack::Session::Moped.new(@incrementor, :marshal_data => false)
     pool.marshal_data.should ==  false
     data = {'test' => true}
@@ -161,7 +152,6 @@ describe Rack::Session::Moped do
     pool.send(:unpack, data).should === data
   end
   specify 'omits cookie with :defer option' do
-    pending
     pool = Rack::Session::Moped.new(@incrementor)
     req = Rack::MockRequest.new(pool)
     defer = Rack::Utils::Context.new(pool, @defer_session)
@@ -172,7 +162,7 @@ describe Rack::Session::Moped do
     res0.body.should == '{"counter"=>1}'
 
     res1 = req.get('/', 'HTTP_COOKIE' => cookie)
-    res1['Set-Cookie'][@session_match].should == session
+    res1['Set-Cookie'].should be_nil
     res1.body.should == '{"counter"=>2}'
 
     res2 = dreq.get('/', 'HTTP_COOKIE' => cookie)
@@ -180,13 +170,12 @@ describe Rack::Session::Moped do
     res2.body.should == '{"counter"=>3}'
 
     res3 = req.get('/', 'HTTP_COOKIE' => cookie)
-    res3['Set-Cookie'][@session_match].should == session
+    res3['Set-Cookie'].should be_nil
     res3.body.should == '{"counter"=>4}'
   end
 
   # anyone know how to do this better?
   specify 'multithread: should cleanly merge sessions' do
-    pending
     next unless $DEBUG
     warn 'Running multithread test for Session::Mongo'
     pool = Rack::Session::Moped.new(@incrementor)
